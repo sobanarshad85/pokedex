@@ -1,6 +1,6 @@
 import React from "react";
 
-const TextView = ({ data }) => {
+const PokemoneDetails = ({ data }) => {
   return (
     <div>
       <div>
@@ -22,4 +22,4 @@ const TextView = ({ data }) => {
   );
 };
 
-export default TextView;
+export default PokemoneDetails;

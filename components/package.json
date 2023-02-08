@@ -2,7 +2,14 @@
   "name": "pokemon-details",
   "version": "1.0.0",
   "dependencies": {
-    "react": "^17.0.1"
+    "@next/font": "13.1.6",
+    "react": "^17.0.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.8",
+    "@mui/styled-engine-sc": "^5.11.0",
+    "@mui/x-data-grid": "^5.17.22",
+    "styled-components": "^5.3.6"
   },
   "description": "This will return a component where pokemon details will be shown",
   "main": "index.js",

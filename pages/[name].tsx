@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Details from "pokemon-details";
+import { PokemonDetails } from "components";
 
-type PokemonDetails = {
+type Pokemon = {
   order: number;
   name: string;
   weight: string;
 };
-const PokemonDetails = () => {
-  const [data, setData] = useState<PokemonDetails | null>(null);
+const Pokemon = () => {
+  const [data, setData] = useState<Pokemon | null>(null);
   const router = useRouter();
   const { name } = router.query;
   useEffect(() => {
@@ -27,7 +27,9 @@ const PokemonDetails = () => {
       .finally();
   };
 
-  return <div>{data ? <Details data={data} /> : "Data is loading . . ."}</div>;
+  return (
+    <div>{data ? <PokemonDetails data={data} /> : "Data is loading . . ."}</div>
+  );
 };
 
-export default PokemonDetails;
+export default Pokemon;

@@ -6,18 +6,8 @@ import {
   setLoading,
   setPageLimit,
 } from "../redux/reducers";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
-
-type Row = { row: { col1: string } };
-type Pokemon = { name: string; url: string };
-type State = {
-  pokemons: Pokemon[];
-  pageOffset: number;
-  loading: boolean;
-  pageLimit: number;
-  totalRecords: number;
-};
+import { PokemonListing } from "components";
 
 const Page = () => {
   const pokemons = useSelector((state: State) => state.pokemons);
@@ -32,7 +22,7 @@ const Page = () => {
     fetchPokemon();
   }, [pageOffset, pageLimit]);
 
-  const fetchPokemon = async () => {
+  const fetchPokemon = () => {
     dispatch(setLoading(true));
     fetch(
       `https://pokeapi.co/api/v2/pokemon?offset=${
@@ -54,7 +44,7 @@ const Page = () => {
     });
   }, [pokemons, pageLimit, pageOffset]);
 
-  const columns: GridColDef[] = [
+  const columns = [
     { field: "id", headerName: "ID" },
     { field: "col1", headerName: "Name1", width: 250 },
   ];
@@ -66,23 +56,30 @@ const Page = () => {
   };
 
   return (
-      <div style={{ display: "flex", flex: 1, height: "70vh", width: "100%" }}>
-        <DataGrid
-          loading={loading}
-          rowCount={totalRecords ?? 100}
-          pageSize={pageLimit}
-          rowsPerPageOptions={[5, 10, 100]}
-          onPageChange={(newPage) => dispatch(setOffset(newPage))}
-          onPageSizeChange={(limit) => dispatch(setPageLimit(limit))}
-          page={pageOffset}
-          rows={rows}
-          columns={columns}
-          // autoHeight
-          paginationMode="server"
-          onRowClick={handleRowClick}
-        />
-      </div>
+    <div style={{ display: "flex", flex: 1, height: "70vh", width: "100%" }}>
+      <PokemonListing
+        loading={loading}
+        totalRecords={totalRecords}
+        pageLimit={pageLimit}
+        onPageChange={(newPage: number) => dispatch(setOffset(newPage))}
+        onPageSizeChange={(limit: number) => dispatch(setPageLimit(limit))}
+        pageOffset={pageOffset}
+        rows={rows}
+        columns={columns}
+        onRowClick={handleRowClick}
+      />
+    </div>
   );
 };
 
 export default Page;
+
+type Row = { row: { col1: string } };
+type Pokemon = { name: string; url: string };
+type State = {
+  pokemons: Pokemon[];
+  pageOffset: number;
+  loading: boolean;
+  pageLimit: number;
+  totalRecords: number;
+};
