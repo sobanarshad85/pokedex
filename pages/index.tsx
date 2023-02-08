@@ -5,7 +5,7 @@ import {
   setOffset,
   setLoading,
   setPageLimit,
-} from "../redux/reducers";
+} from "../redux/actions";
 import { useRouter } from "next/router";
 import { PokemonListing } from "components";
 import { fetchNetworkData, makeRows } from "utils";

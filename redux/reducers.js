@@ -1,35 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  ADD_POKEMONS,
+  SET_LOADING,
+  SET_OFFSET,
+  SET_PAGE_LIMIT,
+} from "../contants";
 
-const pokeSlice = createSlice({
-  name: "pokemon",
-  initialState: {
-    pokemons: [],
-    loading: true,
-    error: null,
-    pageOffset: 0,
-    pageLimit: 10,
-    totalRecords: 0,
-  },
-  reducers: {
-    setOffset: (state, action) => {
+const initialState = {
+  pokemons: [],
+  loading: true,
+  error: null,
+  pageOffset: 0,
+  pageLimit: 10,
+  totalRecords: 0,
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_OFFSET:
       return {
         ...state,
         pageOffset: action.payload,
       };
-    },
-    setPageLimit: (state, action) => {
+    case SET_PAGE_LIMIT:
       return {
         ...state,
         pageLimit: action.payload,
       };
-    },
-    setLoading: (state, action) => {
+    case SET_LOADING:
       return {
         ...state,
         loading: action.payload,
       };
-    },
-    addPokemons: (state, action) => {
+    case ADD_POKEMONS:
       return {
         ...state,
         pokemons: action.payload.results,
@@ -37,11 +39,9 @@ const pokeSlice = createSlice({
         loading: false,
         error: null,
       };
-    },
-  },
-});
+    default:
+      return state;
+  }
+};
 
-export const { addPokemons, setOffset, setLoading, setPageLimit } =
-  pokeSlice.actions;
-
-export default pokeSlice.reducer;
+export default reducer;
