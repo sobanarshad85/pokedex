@@ -8,13 +8,11 @@ import {
 } from "../redux/reducers";
 import { useRouter } from "next/router";
 import { PokemonListing } from "components";
+import { fetchNetworkData } from "utils";
 
 const Page = () => {
-  const pokemons = useSelector((state: State) => state.pokemons);
-  const pageOffset = useSelector((state: State) => state.pageOffset);
-  const loading = useSelector((state: State) => state.loading);
-  const pageLimit = useSelector((state: State) => state.pageLimit);
-  const totalRecords = useSelector((state: State) => state.totalRecords);
+  const { pokemons, pageOffset, loading, pageLimit, totalRecords } =
+    useSelector((state: State) => state);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -22,17 +20,15 @@ const Page = () => {
     fetchPokemon();
   }, [pageOffset, pageLimit]);
 
-  const fetchPokemon = () => {
+  const fetchPokemon = async () => {
     dispatch(setLoading(true));
-    fetch(
+    const res: any = await fetchNetworkData(
       `https://pokeapi.co/api/v2/pokemon?offset=${
         pageOffset * pageLimit
       }&limit=${pageLimit}`
-    )
-      .then((res) => {
-        res.json().then((data) => dispatch(addPokemons(data)));
-      })
-      .catch(() => dispatch(setLoading(false)));
+    );
+    if (!res) return dispatch(setLoading(false));
+    else dispatch(addPokemons(res));
   };
 
   const rows = useMemo(() => {
