@@ -52,7 +52,7 @@ const Page = () => {
         col1: pokemon.name,
       };
     });
-  }, [pokemons]);
+  }, [pokemons, pageLimit, pageOffset]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID" },
@@ -66,8 +66,7 @@ const Page = () => {
   };
 
   return (
-    <div>
-      <div style={{ display:'flex',flex:1, height: '70vh', width: "100%" }}>
+      <div style={{ display: "flex", flex: 1, height: "70vh", width: "100%" }}>
         <DataGrid
           loading={loading}
           rowCount={totalRecords ?? 100}
@@ -83,7 +82,6 @@ const Page = () => {
           onRowClick={handleRowClick}
         />
       </div>
-    </div>
   );
 };
 
