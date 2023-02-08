@@ -8,7 +8,7 @@ import {
 } from "../redux/reducers";
 import { useRouter } from "next/router";
 import { PokemonListing } from "components";
-import { fetchNetworkData } from "utils";
+import { fetchNetworkData, makeRows } from "utils";
 
 const Page = () => {
   const { pokemons, pageOffset, loading, pageLimit, totalRecords } =
@@ -31,14 +31,10 @@ const Page = () => {
     else dispatch(addPokemons(res));
   };
 
-  const rows = useMemo(() => {
-    return pokemons.map((pokemon: Pokemon, index: number) => {
-      return {
-        id: index + 1 + pageLimit * pageOffset,
-        col1: pokemon.name,
-      };
-    });
-  }, [pokemons, pageLimit, pageOffset]);
+  const rows = useMemo(
+    () => makeRows(pokemons, pageLimit, pageOffset),
+    [pokemons, pageLimit, pageOffset]
+  );
 
   const columns = [
     { field: "id", headerName: "ID" },
