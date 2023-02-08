@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Details from "pokemon-details";
 
 type PokemonDetails = {
   order: number;
@@ -26,19 +27,7 @@ const PokemonDetails = () => {
       .finally();
   };
 
-  return (
-    <div>
-      {data ? (
-        <>
-          <div>Order: {data.order}</div>
-          <div>Name: {data.name}</div>
-          <div>Weight: {data.weight}</div>
-        </>
-      ) : (
-        "Data is loading . . ."
-      )}
-    </div>
-  );
+  return <div>{data ? <Details data={data} /> : "Data is loading . . ."}</div>;
 };
 
 export default PokemonDetails;
