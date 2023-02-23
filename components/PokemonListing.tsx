@@ -1,6 +1,20 @@
 import React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
+type PokemonListingProps = {
+  loading: boolean;
+  totalRecords?: number;
+  pageLimit?: number;
+  pageOffset: number;
+  onRowClick: (row: Row) => void;
+  onPageSizeChange: (limit: number) => void;
+  onPageChange: (newPage: number) => void;
+  rows: any[];
+  columns: any[];
+};
+
+type Row = { row: { col1: string } };
+
 const PokemonListing = ({
   loading = false,
   totalRecords,
@@ -11,7 +25,7 @@ const PokemonListing = ({
   rows,
   columns,
   onRowClick,
-}) => {
+}: PokemonListingProps) => {
   return (
     <DataGrid
       loading={loading}

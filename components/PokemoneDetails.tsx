@@ -1,6 +1,14 @@
 import React from "react";
 
-const PokemoneDetails = ({ data }) => {
+type PokemoneDetailsProps = {
+  data: {
+    order: number;
+    name: string;
+    weight: string;
+  };
+};
+
+const PokemoneDetails = ({ data }: PokemoneDetailsProps) => {
   return (
     <div>
       <div>
